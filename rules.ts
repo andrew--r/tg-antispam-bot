@@ -14,10 +14,14 @@ const keywords = [
   "президент",
 ];
 
-function suspiciousText(message: Message) {
-  const normalizedText = message.text?.toLowerCase() ?? "";
+export function suspiciousText(text: string) {
+  const normalizedText = text.toLowerCase();
+  const lines = normalizedText.split("\n");
 
-  return keywords.some((keyword) => normalizedText.includes(keyword));
+  return (
+    keywords.some((keyword) => normalizedText.includes(keyword)) ||
+    lines.length > 3
+  );
 }
 
 function hasLink(message: Message) {
@@ -41,6 +45,7 @@ function hasAttachments(message: Message) {
 
 export function isSupposedSpam(message: Message) {
   return (
-    suspiciousText(message) && (hasLink(message) || hasAttachments(message))
+    suspiciousText(message.text ?? "") &&
+    (hasLink(message) || hasAttachments(message))
   );
 }
