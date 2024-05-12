@@ -1,7 +1,7 @@
 import { Bot } from "https://deno.land/x/grammy@v1.23.0/mod.ts";
 import { isSupposedSpam } from "./rules.ts";
 
-const FW_CHAT_ID = 1001478000911;
+const FW_CHAT_ID = -1001478000911;
 
 export const bot = new Bot(Deno.env.get("BOT_TOKEN") || "");
 
