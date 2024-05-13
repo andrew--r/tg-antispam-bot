@@ -20,3 +20,9 @@ Deno.test("should mark multiparagraph text as suspiciousj", () => {
 
   assertEquals(suspiciousText(text), true);
 });
+
+Deno.test("should detect character spoofing", () => {
+  const text = `5 минyт нaзaд Прeзидент cooбщил вaжнyю нoвocть для вceй PΦ`;
+
+  assertEquals(suspiciousText(text), true);
+});

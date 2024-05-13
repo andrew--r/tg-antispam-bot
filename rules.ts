@@ -14,8 +14,32 @@ const keywords = [
   "президент",
 ];
 
+const spoofingCharactersMap = {
+  a: "а",
+  c: "с",
+  e: "е",
+  h: "н",
+  k: "к",
+  m: "м",
+  o: "о",
+  p: "р",
+  t: "т",
+  x: "х",
+  y: "у",
+};
+
+function normalizeText(text: string) {
+  text = text.toLowerCase();
+
+  for (const [char, replacement] of Object.entries(spoofingCharactersMap)) {
+    text = text.replaceAll(char, replacement);
+  }
+
+  return text;
+}
+
 export function suspiciousText(text: string) {
-  const normalizedText = text.toLowerCase();
+  const normalizedText = normalizeText(text);
   const lines = normalizedText.split("\n");
 
   return (
