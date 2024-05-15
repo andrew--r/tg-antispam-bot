@@ -12,6 +12,7 @@ const keywords = [
   "подписаться",
   "читать далее",
   "президент",
+  "трейдинг",
 ];
 
 const spoofingCharactersMap = {
