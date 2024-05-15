@@ -39,7 +39,7 @@ function normalizeText(text: string) {
   return text;
 }
 
-export function suspiciousText(text: string) {
+export function isSuspiciousText(text: string): boolean {
   const normalizedText = normalizeText(text);
   const lines = normalizedText.split("\n");
 
@@ -69,8 +69,9 @@ function hasAttachments(message: Message) {
 }
 
 export function isSupposedSpam(message: Message) {
-  return (
-    suspiciousText(message.text ?? "") &&
-    (hasLink(message) || hasAttachments(message))
-  );
+  const suspiciousText =
+    isSuspiciousText(message.text ?? "") ||
+    isSuspiciousText(message.caption ?? "");
+
+  return suspiciousText && (hasLink(message) || hasAttachments(message));
 }

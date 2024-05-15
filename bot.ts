@@ -20,7 +20,15 @@ bot.on("my_chat_member", (ctx) => {
 });
 
 bot.on("message", (ctx) => {
+  console.log(
+    `Received message ${ctx.message.message_id}\n`,
+    ctx.message.text?.slice(0, 25)
+  );
+
   if (isSupposedSpam(ctx.message)) {
+    console.log(
+      `Message ${ctx.message.message_id} is supposed to be spam, deleting`
+    );
     try {
       ctx.deleteMessage();
     } catch (error) {
