@@ -13,6 +13,8 @@ const keywords = [
   "читать далее",
   "президент",
   "трейдинг",
+  "в лс",
+  "бесплатно",
 ];
 
 const spoofingCharactersMap = {
@@ -39,14 +41,16 @@ function normalizeText(text: string) {
   return text;
 }
 
-export function isSuspiciousText(text: string): boolean {
+export function getTextSuspicionScore(text: string): number {
   const normalizedText = normalizeText(text);
   const lines = normalizedText.split("\n");
 
-  return (
-    keywords.some((keyword) => normalizedText.includes(keyword)) ||
-    lines.length > 3
+  const matchedKeywords = keywords.filter((keyword) =>
+    normalizedText.includes(keyword)
   );
+  const tooManyLines = lines.length > 3;
+
+  return matchedKeywords.length + (tooManyLines ? 1 : 0);
 }
 
 function hasLink(message: Message) {
@@ -68,10 +72,14 @@ function hasAttachments(message: Message) {
   );
 }
 
-export function isSupposedSpam(message: Message) {
-  const suspiciousText =
-    isSuspiciousText(message.text ?? "") ||
-    isSuspiciousText(message.caption ?? "");
+function getFullMessageText(message: Message) {
+  return `${message.text ?? ""}\n${message.caption ?? ""}`.trim();
+}
 
-  return suspiciousText && (hasLink(message) || hasAttachments(message));
+export function isSupposedSpam(message: Message) {
+  const textScore = getTextSuspicionScore(getFullMessageText(message));
+
+  if (textScore === 0) return false;
+
+  return textScore > 2 || hasLink(message) || hasAttachments(message);
 }

@@ -1,5 +1,5 @@
 import { assertEquals } from "https://deno.land/std@0.224.0/assert/mod.ts";
-import { suspiciousText } from "./rules.ts";
+import { getTextSuspicionScore } from "./rules.ts";
 
 Deno.test("should mark multiparagraph text as suspiciousj", () => {
   const text = `
@@ -18,11 +18,11 @@ Deno.test("should mark multiparagraph text as suspiciousj", () => {
     Пoдпиcaтьcя
       `;
 
-  assertEquals(suspiciousText(text), true);
+  assertEquals(getTextSuspicionScore(text), 3);
 });
 
 Deno.test("should detect character spoofing", () => {
   const text = `5 минyт нaзaд Прeзидент cooбщил вaжнyю нoвocть для вceй PΦ`;
 
-  assertEquals(suspiciousText(text), true);
+  assertEquals(getTextSuspicionScore(text), 1);
 });
