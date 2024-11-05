@@ -7,7 +7,7 @@ export const bot = new Bot(Deno.env.get("BOT_TOKEN") || "");
 
 bot.on("my_chat_member", (ctx) => {
   const hasLeftChat = ["kicked", "left"].includes(
-    ctx.myChatMember.new_chat_member.status
+    ctx.myChatMember.new_chat_member.status,
   );
 
   if (!hasLeftChat && ctx.myChatMember.chat.id !== FW_CHAT_ID) {
@@ -22,12 +22,12 @@ bot.on("my_chat_member", (ctx) => {
 bot.on("message", (ctx) => {
   console.log(
     `Received message ${ctx.message.message_id}\n`,
-    ctx.message.text?.slice(0, 25)
+    ctx.message.text?.slice(0, 25),
   );
 
   if (isSupposedSpam(ctx.message)) {
     console.log(
-      `Message ${ctx.message.message_id} is supposed to be spam, deleting`
+      `Message ${ctx.message.message_id} is supposed to be spam, deleting`,
     );
     try {
       ctx.deleteMessage();
