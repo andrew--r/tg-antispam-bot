@@ -5,8 +5,7 @@ const keywords = [
   "криптовалют",
   "крипта",
   "крипте",
-  "заработок",
-  "заработа",
+  "заработ",
   "зарабат",
   "бизнес",
   "подписывай",
@@ -17,6 +16,10 @@ const keywords = [
   "в лс",
   "бесплатно",
   "оплата",
+  "узнать больше",
+  "доход",
+  "прибыль",
+  "прыбиль",
 ];
 
 const spoofingCharactersMap = {
@@ -29,6 +32,7 @@ const spoofingCharactersMap = {
   o: "о",
   p: "р",
   t: "т",
+  u: "и",
   x: "х",
   y: "у",
 };
@@ -56,9 +60,11 @@ export function getTextSuspicionScore(text: string): number {
 }
 
 function hasLink(message: Message) {
-  return message.entities?.some(
-    (entity) => entity.type === "url" || entity.type === "text_link",
-  ) || message.text?.includes("t.me/");
+  return (
+    message.entities?.some(
+      (entity) => entity.type === "url" || entity.type === "text_link"
+    ) || message.text?.includes("t.me/")
+  );
 }
 
 function hasAttachments(message: Message) {

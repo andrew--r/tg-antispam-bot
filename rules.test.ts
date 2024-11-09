@@ -18,13 +18,23 @@ Deno.test("should mark multiparagraph text as suspicious", () => {
     Пoдпиcaтьcя
       `;
 
-  assertEquals(getTextSuspicionScore(text), 4);
+  assertEquals(getTextSuspicionScore(text), 5);
 });
 
 Deno.test("should detect character spoofing", () => {
-  const text = `5 минyт нaзaд Прeзидент cooбщил вaжнyю нoвocть для вceй PΦ`;
-
-  assertEquals(getTextSuspicionScore(text), 1);
+  assertEquals(
+    getTextSuspicionScore(
+      `5 минyт нaзaд Прeзидент cooбщил вaжнyю нoвocть для вceй PΦ`,
+    ),
+    1,
+  );
+  assertEquals(
+    getTextSuspicionScore(
+      `Я пpeдлaгaю cтaть yчacтнuкoм пpoeктa c выcoкuм дoxoдoм, вce пoлнoстью лeгaльнo`,
+    ),
+    1,
+  );
+  assertEquals(getTextSuspicionScore(`пpыбuльнocть cвышe 45O eвpo в дeнь`), 1);
 });
 
 Deno.test("2024-11-05", () => {
