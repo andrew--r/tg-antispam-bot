@@ -91,5 +91,5 @@ function getFullMessageText(message: Message) {
 export function isSupposedSpam(message: Message) {
   const textScore = getTextSuspicionScore(getFullMessageText(message));
 
-  return textScore > 0 || hasLink(message) || hasAttachments(message);
+  return textScore > 0;
 }
