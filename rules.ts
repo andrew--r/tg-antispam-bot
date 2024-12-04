@@ -58,9 +58,8 @@ export function getTextSuspicionScore(text: string): number {
   const matchedKeywords = keywords.filter((keyword) =>
     normalizedText.includes(keyword)
   );
-  const tooManyLines = lines.length > 3;
 
-  return matchedKeywords.length + (tooManyLines ? 1 : 0);
+  return matchedKeywords.length;
 }
 
 function hasLink(message: Message) {
