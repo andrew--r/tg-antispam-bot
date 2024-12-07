@@ -3,8 +3,8 @@
 Simple bot based on Deno and [grammY](https://grammy.dev/) that deletes supposed
 spam messages from chat.
 
-To set up an instance of the bot, deploy it somewhere and call register webhook
-through Telegram API by making a GET request to the following URL (replace with
+To set up an instance of the bot, deploy it somewhere and register webhook
+through Telegram API by making a GET request to the following URL (replace placeholders with
 your own params):
 
 ```
