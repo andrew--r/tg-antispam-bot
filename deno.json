@@ -1,0 +1,18 @@
+{
+  "tasks": {
+    "dev": "deno run --watch main.ts"
+  },
+  "imports": {
+    "grammy": "https://deno.land/x/grammy@v1.23.0/mod.ts",
+    "grammy_types": "https://deno.land/x/grammy_types@v3.7.0/mod.ts",
+    "@std/assert": "jsr:@std/assert@1"
+  },
+  "deploy": {
+    "project": "ef49bccf-7a66-42e7-a82b-cf0fb9e7da45",
+    "exclude": [
+      "**/node_modules"
+    ],
+    "include": [],
+    "entrypoint": "index.ts"
+  }
+}
