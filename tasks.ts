@@ -29,3 +29,7 @@ export function cancelTask(taskId: TaskId) {
     PENDING_TASKS.delete(taskId);
   }
 }
+
+export function getPendingTask(taskId: string): Task | undefined {
+  return PENDING_TASKS.get(taskId);
+}

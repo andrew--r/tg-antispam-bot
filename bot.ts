@@ -1,7 +1,7 @@
 import { Bot } from "grammy";
 import { getPossibleSpamReasons } from "./rules.ts";
 import { BOT_TOKEN, FW_CHAT_ID, AUTO_DELETE_TIMEOUT_MS } from "./constants.ts";
-import { cancelTask, scheduleTask } from "./tasks.ts";
+import { cancelTask, getPendingTask, scheduleTask } from "./tasks.ts";
 
 export const bot = new Bot(BOT_TOKEN);
 
@@ -50,11 +50,14 @@ bot.on("message", async (ctx) => {
 bot.reaction("🌚", (ctx) => {
   const reaction = ctx.messageReaction;
 
-  ctx.reply("Принято 🌚 cc @andrew_r", {
-    reply_parameters: { message_id: reaction.message_id },
-  });
+  const pendingTaskId = reaction.message_id.toString();
 
-  cancelTask(reaction.message_id.toString());
+  if (getPendingTask(pendingTaskId)) {
+    ctx.reply("Принято 🌚 cc @andrew_r", {
+      reply_parameters: { message_id: reaction.message_id },
+    });
+    cancelTask(pendingTaskId);
+  }
 });
 
 bot.catch((error) => {
