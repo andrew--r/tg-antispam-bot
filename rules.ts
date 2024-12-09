@@ -34,7 +34,8 @@ export function getPossibleSpamReasons(message: Message): string[] {
   const hasLink = detectLink(message);
 
   const fullMessageText = getFullMessageText(message);
-  const hasCharacterSpoofing = detectWordsWithMixedScripts(fullMessageText);
+  const hasCharacterSpoofing =
+    detectWordsWithMixedScripts(fullMessageText).length > 0;
   const hasSpamKeywords = detectSpamKeywords(fullMessageText);
 
   return [

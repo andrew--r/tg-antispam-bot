@@ -7,10 +7,10 @@ const latinRegex = /[\u0041-\u007A]/;
  * Checks if text has words with mixed cyrillic and latin characters,
  * which is usually a sign of characters spoofing
  */
-export function detectWordsWithMixedScripts(text: string): boolean {
+export function detectWordsWithMixedScripts(text: string): string[] {
   return text
-    .split(/w+/)
-    .some((word) => cyrillicRegex.test(word) && latinRegex.test(word));
+    .split(/\s+/)
+    .filter((word) => cyrillicRegex.test(word) && latinRegex.test(word));
 }
 
 function normalizeText(text: string): string {

@@ -18,20 +18,30 @@ Deno.test("hasSpamKeywords", () => {
 });
 
 Deno.test("hasWordsWithMixedScripts", () => {
+  // Positive cases
   assertEquals(
     detectWordsWithMixedScripts(
       `5 минyт нaзaд Прeзидент cooбщил вaжнyю нoвocть для вceй PΦ`
-    ),
+    ).length > 0,
     true
   );
   assertEquals(
     detectWordsWithMixedScripts(
       `Я пpeдлaгaю cтaть yчacтнuкoм пpoeктa c выcoкuм дoxoдoм, вce пoлнoстью лeгaльнo`
-    ),
+    ).length > 0,
     true
   );
   assertEquals(
-    detectWordsWithMixedScripts(`пpыбuльнocть cвышe 45O eвpo в дeнь`),
+    detectWordsWithMixedScripts(`пpыбuльнocть cвышe 45O eвpo в дeнь`).length >
+      0,
     true
+  );
+
+  // Negative cases
+  assertEquals(
+    detectWordsWithMixedScripts(
+      "Difftastic, генератор структурных диффов, учитывающий форматирование и синтаксис языка для более удобного сравнения фрагментов кода → https://difftastic.wilfred.me.uk"
+    ),
+    []
   );
 });
