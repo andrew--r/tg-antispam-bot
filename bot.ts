@@ -48,10 +48,14 @@ bot.on("message", async (ctx, next) => {
         { reply_parameters: { message_id: ctx.message.message_id } }
       );
       scheduleTask(AUTO_DELETE_TIMEOUT_MS, reply.message_id.toString(), () => {
-        ctx.deleteMessages([ctx.message.message_id, reply.message_id]);
+        ctx
+          .deleteMessages([ctx.message.message_id, reply.message_id])
+          .catch((error) => {
+            console.error("Failed to delete message", error);
+          });
       });
     } catch (error) {
-      console.error("Failed to delete message", error);
+      console.error("Failed to reply to supposed spam message", error);
     }
   }
 
